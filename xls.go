@@ -4,32 +4,32 @@ import (
 	"io"
 	"os"
 
-	"github.com/extrame/ole2"
+	"github.com/vstasn/ole2"
 )
 
-//Open one xls file
-func Open(file string, charset string) (*WorkBook, error) {
+// Open one xls file
+func Open(file string) (*WorkBook, error) {
 	if fi, err := os.Open(file); err == nil {
-		return OpenReader(fi, charset)
+		return OpenReader(fi)
 	} else {
 		return nil, err
 	}
 }
 
-//Open one xls file and return the closer
-func OpenWithCloser(file string, charset string) (*WorkBook, io.Closer, error) {
+// Open one xls file and return the closer
+func OpenWithCloser(file string) (*WorkBook, io.Closer, error) {
 	if fi, err := os.Open(file); err == nil {
-		wb, err := OpenReader(fi, charset)
+		wb, err := OpenReader(fi)
 		return wb, fi, err
 	} else {
 		return nil, nil, err
 	}
 }
 
-//Open xls file from reader
-func OpenReader(reader io.ReadSeeker, charset string) (wb *WorkBook, err error) {
+// Open xls file from reader
+func OpenReader(reader io.ReadSeeker) (wb *WorkBook, err error) {
 	var ole *ole2.Ole
-	if ole, err = ole2.Open(reader, charset); err == nil {
+	if ole, err = ole2.Open(reader); err == nil {
 		var dir []*ole2.File
 		if dir, err = ole.ListDir(); err == nil {
 			var book *ole2.File
