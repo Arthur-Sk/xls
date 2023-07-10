@@ -23,7 +23,7 @@ type boundsheet struct {
 	Name    byte
 }
 
-//WorkSheet in one WorkBook
+// WorkSheet in one WorkBook
 type WorkSheet struct {
 	bs         *boundsheet
 	wb         *WorkBook
@@ -125,13 +125,10 @@ func (w *WorkSheet) parseBof(buf io.ReadSeeker, b *bof, pre *bof, col_pre interf
 			}
 			col = c
 		}
-	case 0x27e: //RK
-		col = new(RkCol)
-		binary.Read(buf, binary.LittleEndian, col)
 	case 0xFD: //LABELSST
 		col = new(LabelsstCol)
 		binary.Read(buf, binary.LittleEndian, col)
-	case 0x204:
+	case 0x27e, 0x204:
 		c := new(labelCol)
 		binary.Read(buf, binary.LittleEndian, &c.BlankCol)
 		var count uint16
