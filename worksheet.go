@@ -125,9 +125,9 @@ func (w *WorkSheet) parseBof(buf io.ReadSeeker, b *bof, pre *bof, col_pre interf
 			}
 			col = c
 		}
-	//case 0x27e: //RK
-	//	col = new(RkCol)
-	//	binary.Read(buf, binary.LittleEndian, col)
+	case 0x27e: //RK
+		col = new(RkCol)
+		binary.Read(buf, binary.LittleEndian, col)
 	case 0xFD: //LABELSST
 		col = new(LabelsstCol)
 		binary.Read(buf, binary.LittleEndian, col)
