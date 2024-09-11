@@ -55,6 +55,7 @@ func (xf *XfRk) String(wb *WorkBook) string {
 				formatterLower := strings.ToLower(formatter.str)
 				if (formatterLower == "general" ||
 					strings.Contains(formatter.str, "#") ||
+					strings.Contains(formatter.str, "0.0") ||
 					strings.Contains(formatter.str, ".00")) &&
 					!strings.Contains(formatterLower, "m/y") &&
 					!strings.Contains(formatterLower, "d/y") &&
